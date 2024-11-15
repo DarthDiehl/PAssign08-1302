@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -38,41 +39,40 @@ public class TestPA08 extends Application {
 		keyPane.setAlignment(Pos.CENTER);
 		keyPane.setPadding(new Insets(5));
 
-		// radio buttons
+		// Making radio buttons and wrapping it together function & display
 		RadioButton rbDefault = new RadioButton("Defualt");
-		RadioButton rbCustom = new RadioButton("Costum");
+		RadioButton rbCustom = new RadioButton("Custom");
 		ToggleGroup group = new ToggleGroup();
 		rbDefault.setToggleGroup(group);
 		rbCustom.setToggleGroup(group);
-		rbCustom.setSelected(true);
-		radioButtonPane.getChildren().addAll(rbDefault, rbCustom);
-		
+		radioButtonPane.getChildren().addAll(rbDefault,new Label("or"), rbCustom);
+		radioButtonPane.setAlignment(Pos.CENTER);
+		radioButtonPane.setPadding(new Insets(10));
+		// Listeners
 		rbDefault.setOnAction(e -> switchKeypadLayout(false));
 		rbCustom.setOnAction(e -> switchKeypadLayout(true));
 
-		radioButtonPane.setAlignment(Pos.CENTER);
-		radioButtonPane.setPadding(new Insets(10));
-
-		// add parts to GridPane
-		// node, x, y
+		// Building gridPane - main display
+		// Didn't want repeating code so you'll have to choose your display.
+							// node, x, y
+		mainPane.add(new Label("Choose Layout:"), 0, 0);
 		mainPane.add(radioButtonPane, 1, 0);
-		mainPane.add(keyPane.addStyle(), 1, 1);
-		mainPane.add(keyPane, 1, 2);
-		mainPane.add(keyPane.addImage(), 0, 2);
-		mainPane.add(keyPane.addLock(), 2, 2);
+//		mainPane.add(keyPane.addStyle(), 1, 1);
+//		mainPane.add(keyPane, 1, 2);
+//		mainPane.add(keyPane.addImage(), 0, 2);
+//		mainPane.add(keyPane.addLock(), 2, 2);
 		dressPane.getChildren().add(mainPane);
 		dressPane.setAlignment(Pos.CENTER);
 
-		// create your scene (400 x 400 to clearly show KeyPadPane)
+		// Scene and Stage
 		Scene scene = new Scene(dressPane, 300, 300);
-
 		primaryStage.setTitle("Test PA08"); // Set the stage title
 		primaryStage.setScene(scene); // Place the scene in the stage
 		primaryStage.setMinHeight(250);
 		primaryStage.setMinWidth(250);
 		primaryStage.show(); // Display the stage
 	}
-	
+	//
 	private void switchKeypadLayout(boolean isCustom) {
         // Create the new keyPad with the desired layout
         keyPane = new PAssign08(isCustom);
